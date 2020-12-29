@@ -43,3 +43,8 @@ variable "consul_agent" {
   description = "Add non-server Consul metadata"
   default     = false
 }
+
+variable "consul_retry_join" {
+  type = list(string)
+  description = "Set of retry_join parameters"
+}

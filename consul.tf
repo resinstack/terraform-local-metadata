@@ -1,5 +1,6 @@
 resource "local_file" "consul_server_retry_join" {
-  content = "retry_join = [\"provider=aws tag_key=resinstack:consul:autojoin tag_value=${var.cluster_tag}\"]\n"
+  count = var.consul_agent || var.consul_server ? 1 : 0
+  content = "retry_join = [\"${join(",", var.consul_retry_join)}\"]"
 
   filename             = "${var.base_path}/consul/90-gen-retry-join.hcl"
   file_permission      = "0644"
