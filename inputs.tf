@@ -45,6 +45,30 @@ variable "consul_agent" {
 }
 
 variable "consul_retry_join" {
-  type = list(string)
+  type        = list(string)
   description = "Set of retry_join parameters"
+}
+
+variable "consul_datacenter" {
+  type        = string
+  description = "Datacenter for consul"
+  default     = "dc1"
+}
+
+variable "consul_advertise" {
+  type        = string
+  description = "Address to advertise to the cluster"
+  default     = "{{ GetInterfaceIP \"eth0\" }}"
+}
+
+variable "consul_acls" {
+  type        = bool
+  description = "Include an acl{} block"
+  default     = true
+}
+
+variable "consul_acl_default_policy" {
+  type        = string
+  description = "Default ACL policy for consul"
+  default     = "deny"
 }
