@@ -20,6 +20,12 @@ variable "vault_server" {
   default     = false
 }
 
+variable "vault_api_addr" {
+  type        = string
+  description = "API Address to provide to Vault"
+  default     = "http://active.vault.service.consul:8200"
+}
+
 variable "nomad_server" {
   type        = bool
   description = "Add Nomad server metadata."
@@ -58,7 +64,7 @@ variable "consul_datacenter" {
 variable "consul_advertise" {
   type        = string
   description = "Address to advertise to the cluster"
-  default     = "{{ GetInterfaceIP \"eth0\" }}"
+  default     = "{{ GetInterfaceIP \\\"eth0\\\" }}"
 }
 
 variable "consul_acls" {
@@ -71,4 +77,22 @@ variable "consul_acl_default_policy" {
   type        = string
   description = "Default ACL policy for consul"
   default     = "deny"
+}
+
+variable "nomad_datacenter" {
+  type        = string
+  description = "Datacenter for nomad"
+  default     = "dc1"
+}
+
+variable "nomad_advertise" {
+  type        = string
+  description = "Address to advertise to the cluster"
+  default     = "{{ GetInterfaceIP \\\"eth0\\\" }}"
+}
+
+variable "nomad_acls" {
+  type        = bool
+  description = "Include an acl{} block"
+  default     = true
 }

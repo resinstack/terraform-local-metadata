@@ -59,7 +59,8 @@ data "template_file" "emissary_consul_server" {
 
   template = file("${path.module}/tpl/consul_server.tpl")
   vars = {
-    consul_gossip_key_name = "resinstack-consul-gossip-key-${var.cluster_tag}"
+    consul_gossip_key_name  = "resinstack-consul-gossip-key-${var.cluster_tag}"
+    consul_agent_token_name = "resinstack-consul-agent-token-${var.cluster_tag}"
   }
 }
 

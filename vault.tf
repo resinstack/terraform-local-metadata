@@ -8,6 +8,16 @@ resource "local_file" "vault_kms_id" {
   directory_permission = "0755"
 }
 
+resource "local_file" "vault_api_addr" {
+  count = var.vault_server ? 1 : 0
+
+  content = "api_addr = \"${var.vault_api_addr}\""
+
+  filename             = "${var.base_path}/vault/90-api-addr.hcl"
+  file_permission      = "0644"
+  directory_permission = "0755"
+}
+
 data "template_file" "emissary_vault" {
   count = var.vault_server ? 1 : 0
 

@@ -1,9 +1,47 @@
+resource "local_file" "nomad_datacenter" {
+  count   = var.nomad_client || var.nomad_server ? 1 : 0
+  content = "datacenter = \"${var.nomad_datacenter}\"\n"
+
+  filename             = "${var.base_path}/nomad/90-gen-dc.hcl"
+  file_permission      = "0644"
+  directory_permission = "0755"
+}
+
+data "template_file" "nomad_advertise" {
+  count = var.nomad_client || var.nomad_server ? 1 : 0
+
+  template = file("${path.module}/tpl/nomad_advertise.tpl")
+  vars = {
+    nomad_advertise = var.nomad_advertise
+  }
+}
+
+resource "local_file" "nomad_advertise" {
+  count = var.nomad_client || var.nomad_server ? 1 : 0
+
+  content = data.template_file.nomad_advertise[0].rendered
+
+  filename             = "${var.base_path}/nomad/90-gen-advertise.hcl"
+  file_permission      = "0644"
+  directory_permission = "0755"
+}
+
+resource "local_file" "nomad_acl" {
+  count = (var.nomad_client || var.nomad_server) && var.nomad_acls ? 1 : 0
+
+  content = file("${path.module}/tpl/nomad_acl.tpl")
+
+  filename             = "${var.base_path}/nomad/90-gen-acl.hcl"
+  file_permission      = "0644"
+  directory_permission = "0755"
+}
+
 data "template_file" "emissary_nomad_server" {
   count = var.nomad_server ? 1 : 0
 
   template = file("${path.module}/tpl/nomad_server.tpl")
   vars = {
-    nomad_gossip_key_name   = "resinstack-consul-gossip-key-${var.cluster_tag}"
+    nomad_gossip_key_name   = "resinstack-nomad-gossip-key-${var.cluster_tag}"
     nomad_consul_token_name = "resinstack-nomad-server-consul-token-${var.cluster_tag}"
     nomad_vault_token_name  = "resinstack-nomad-vault-token-${var.cluster_tag}"
   }
