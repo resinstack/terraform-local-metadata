@@ -8,6 +8,7 @@ server {
   enabled = true
   encrypt = "{{poll "awssm" "${nomad_gossip_key_name}"}}"
   bootstrap_expect = 3
+  raft_protocol = 3
 }
 
 consul {
