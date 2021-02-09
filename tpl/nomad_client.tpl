@@ -4,5 +4,5 @@ mode: 0400
 onrender: /usr/bin/restart nomad
 ---
 consul {
-  token = "{{poll "awssm" "${nomad_client_consul_token_name}"}}"
+  token = "{{poll "${secret_provider}" "${nomad_client_consul_token_name}"}}"
 }

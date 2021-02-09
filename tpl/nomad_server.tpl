@@ -6,18 +6,18 @@ onrender: /usr/bin/restart nomad
 
 server {
   enabled = true
-  encrypt = "{{poll "awssm" "${nomad_gossip_key_name}"}}"
+  encrypt = "{{poll "${secret_provider}" "${nomad_gossip_key_name}"}}"
   bootstrap_expect = 3
   raft_protocol = 3
 }
 
 consul {
-  token = "{{poll "awssm" "${nomad_consul_token_name}"}}"
+  token = "{{poll "${secret_provider}" "${nomad_consul_token_name}"}}"
 }
 
 vault {
     enabled = true
     address = "http://active.vault.service.consul:8200"
     create_from_role = "nomad-cluster"
-    token = "{{poll "awssm" "${nomad_vault_token_name}"}}"
+    token = "{{poll "${secret_provider}" "${nomad_vault_token_name}"}}"
 }

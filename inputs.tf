@@ -3,6 +3,11 @@ variable "base_path" {
   description = "Path to write files to"
 }
 
+variable "secret_provider" {
+  type = string
+  description = "Emissary plugin to retrieve secrets with"
+}
+
 variable "vault_key_id" {
   type        = string
   description = "ID of the KMS used for Vault unseal."
@@ -20,10 +25,10 @@ variable "vault_server" {
   default     = false
 }
 
-variable "vault_api_addr" {
-  type        = string
-  description = "API Address to provide to Vault"
-  default     = "http://active.vault.service.consul:8200"
+variable "vault_service_tags" {
+  type = string
+  description = "Tags to pass to consul.servivce_tags"
+  default = ""
 }
 
 variable "nomad_server" {
@@ -61,38 +66,14 @@ variable "consul_datacenter" {
   default     = "dc1"
 }
 
-variable "consul_advertise" {
-  type        = string
-  description = "Address to advertise to the cluster"
-  default     = "{{ GetInterfaceIP \\\"eth0\\\" }}"
-}
-
-variable "consul_acls" {
-  type        = bool
-  description = "Include an acl{} block"
-  default     = true
-}
-
-variable "consul_acl_default_policy" {
-  type        = string
-  description = "Default ACL policy for consul"
-  default     = "deny"
+variable "consul_bootstrap_expect" {
+  type = number
+  description = "Number of servers to wait for bootstrapping"
+  default = 3
 }
 
 variable "nomad_datacenter" {
   type        = string
   description = "Datacenter for nomad"
   default     = "dc1"
-}
-
-variable "nomad_advertise" {
-  type        = string
-  description = "Address to advertise to the cluster"
-  default     = "{{ GetInterfaceIP \\\"eth0\\\" }}"
-}
-
-variable "nomad_acls" {
-  type        = bool
-  description = "Include an acl{} block"
-  default     = true
 }

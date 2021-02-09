@@ -4,6 +4,6 @@ mode: 0400
 onrender: /usr/bin/restart vault
 ---
 storage "consul" {
-  token        = "{{poll "awssm" "${vault_consul_token_name}"}}"
-  service_tags = "proxy.enable=true"
+  token        = "{{poll "${secret_provider}" "${vault_consul_token_name}"}}"
+  service_tags = "${service_tags}"
 }
