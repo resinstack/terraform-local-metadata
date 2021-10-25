@@ -4,7 +4,7 @@ variable "base_path" {
 }
 
 variable "secret_provider" {
-  type = string
+  type        = string
   description = "Emissary plugin to retrieve secrets with"
 }
 
@@ -26,9 +26,9 @@ variable "vault_server" {
 }
 
 variable "vault_service_tags" {
-  type = string
+  type        = string
   description = "Tags to pass to consul.servivce_tags"
-  default = ""
+  default     = ""
 }
 
 variable "nomad_server" {
@@ -67,13 +67,19 @@ variable "consul_datacenter" {
 }
 
 variable "consul_bootstrap_expect" {
-  type = number
+  type        = number
   description = "Number of servers to wait for bootstrapping"
-  default = 3
+  default     = 3
 }
 
 variable "nomad_datacenter" {
   type        = string
   description = "Datacenter for nomad"
   default     = "dc1"
+}
+
+variable "nomad_bootstrap_expect" {
+  type        = number
+  description = "Number of servers to wait for bootstrapping"
+  default     = 1
 }

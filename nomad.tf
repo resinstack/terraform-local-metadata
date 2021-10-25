@@ -12,10 +12,11 @@ data "template_file" "emissary_nomad_server" {
 
   template = file("${path.module}/tpl/nomad_server.tpl")
   vars = {
-    secret_provider = var.secret_provider
+    secret_provider         = var.secret_provider
     nomad_gossip_key_name   = "resinstack-nomad-gossip-key-${var.cluster_tag}"
     nomad_consul_token_name = "resinstack-nomad-server-consul-token-${var.cluster_tag}"
     nomad_vault_token_name  = "resinstack-nomad-vault-token-${var.cluster_tag}"
+    nomad_bootstrap_expect  = var.nomad_bootstrap_expect
   }
 }
 
@@ -34,7 +35,7 @@ data "template_file" "emissary_nomad_client" {
 
   template = file("${path.module}/tpl/nomad_client.tpl")
   vars = {
-    secret_provider = var.secret_provider
+    secret_provider                = var.secret_provider
     nomad_client_consul_token_name = "resinstack-nomad-client-consul-token-${var.cluster_tag}"
   }
 }

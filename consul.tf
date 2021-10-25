@@ -17,11 +17,11 @@ resource "local_file" "consul_datacenter" {
 }
 
 resource "local_file" "consul_bootstrap" {
-  count = var.consul_server ? 1 : 0
+  count   = var.consul_server ? 1 : 0
   content = "bootstrap_expect = ${var.consul_bootstrap_expect}\n"
 
-  filename = "${var.base_path}/consul/90-gen-bootstrap.hcl"
-  file_permission = "0644"
+  filename             = "${var.base_path}/consul/90-gen-bootstrap.hcl"
+  file_permission      = "0644"
   directory_permission = "0755"
 }
 
@@ -30,7 +30,7 @@ data "template_file" "emissary_consul" {
 
   template = file("${path.module}/tpl/consul.tpl")
   vars = {
-    secret_provider = var.secret_provider
+    secret_provider         = var.secret_provider
     consul_gossip_key_name  = "resinstack-consul-gossip-key-${var.cluster_tag}"
     consul_agent_token_name = "resinstack-consul-agent-token-${var.cluster_tag}"
   }

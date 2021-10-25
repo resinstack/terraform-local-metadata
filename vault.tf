@@ -13,8 +13,8 @@ data "template_file" "emissary_vault" {
 
   template = file("${path.module}/tpl/vault.tpl")
   vars = {
-    secret_provider = var.secret_provider
-    service_tags = var.vault_service_tags
+    secret_provider         = var.secret_provider
+    service_tags            = var.vault_service_tags
     vault_consul_token_name = "resinstack-vault-consul-token-${var.cluster_tag}"
   }
 }

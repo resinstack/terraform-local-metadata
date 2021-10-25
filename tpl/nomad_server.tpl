@@ -7,7 +7,7 @@ onrender: /usr/bin/restart nomad
 server {
   enabled = true
   encrypt = "{{poll "${secret_provider}" "${nomad_gossip_key_name}"}}"
-  bootstrap_expect = 3
+  bootstrap_expect = ${nomad_bootstrap_expect}
   raft_protocol = 3
 }
 
