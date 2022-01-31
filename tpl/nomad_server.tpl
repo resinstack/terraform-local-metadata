@@ -1,7 +1,7 @@
 ---
 dest: /run/config/nomad/85-gen-secret.hcl
 mode: 0400
-onrender: /usr/bin/restart nomad
+onrender: /usr/bin/sv restart nomad
 ---
 
 server {

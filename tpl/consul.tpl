@@ -1,7 +1,7 @@
 ---
 mode: 0400
 dest: /run/config/consul/85-gen-secret.hcl
-onrender: /usr/bin/restart consul
+onrender: /usr/bin/sv restart consul
 ---
 encrypt = "{{poll "${secret_provider}" "${consul_gossip_key_name}"}}"
 
