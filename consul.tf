@@ -25,21 +25,14 @@ resource "local_file" "consul_bootstrap" {
   directory_permission = "0755"
 }
 
-data "template_file" "emissary_consul" {
-  count = var.consul_agent || var.consul_server ? 1 : 0
-
-  template = file("${path.module}/tpl/consul.tpl")
-  vars = {
-    secret_provider         = var.secret_provider
-    consul_gossip_key_name  = "resinstack-consul-gossip-key-${var.cluster_tag}"
-    consul_agent_token_name = "resinstack-consul-agent-token-${var.cluster_tag}"
-  }
-}
-
 resource "local_file" "emissary_consul" {
   count = var.consul_agent || var.consul_server ? 1 : 0
 
-  content = data.template_file.emissary_consul[0].rendered
+  content = templatefile("${path.module}/tpl/consul.tpl", {
+    secret_provider         = var.secret_provider
+    consul_gossip_key_name  = "resinstack-consul-gossip-key-${var.cluster_tag}"
+    consul_agent_token_name = "resinstack-consul-agent-token-${var.cluster_tag}"
+  })
 
   filename             = "${var.base_path}/emissary/90-gen-consul.tpl"
   file_permission      = "0644"
