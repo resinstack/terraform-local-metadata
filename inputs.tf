@@ -8,27 +8,9 @@ variable "secret_provider" {
   description = "Emissary plugin to retrieve secrets with"
 }
 
-variable "vault_key_id" {
-  type        = string
-  description = "ID of the KMS used for Vault unseal."
-  default     = ""
-}
-
 variable "cluster_tag" {
   type        = string
   description = "Tag associated with the cluster."
-}
-
-variable "vault_server" {
-  type        = bool
-  description = "Add Vault server metadata."
-  default     = false
-}
-
-variable "vault_service_tags" {
-  type        = string
-  description = "Tags to pass to consul.servivce_tags"
-  default     = ""
 }
 
 variable "nomad_server" {
